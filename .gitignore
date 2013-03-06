@@ -12,5 +12,24 @@
 *.la
 *.a
 
-# Compiled executables
+# Compiled Executables
+*.exe
 *.out
+
+# Archives
+*.7z
+*.zip
+
+# MSVC Generated Files
+*.idb
+*.ilk
+*.log
+*.obj
+*.pdb
+*.sdf
+*.sln
+*.suo
+*.tlog
+*.filters
+*.vcxproj
+*.lastbuildstate
