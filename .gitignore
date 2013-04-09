@@ -31,5 +31,6 @@
 *.suo
 *.tlog
 *.filters
+*.opensdf
 *.vcxproj
 *.lastbuildstate
