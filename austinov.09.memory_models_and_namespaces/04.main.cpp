@@ -20,10 +20,15 @@ int main()
 {
 
     SALES::Sales sls0;
+    SALES::Sales sls1;
 
     SALES::setSales(sls0);
 
+    const double arr1[] = {12.34, 56.78, 91.0, 11.12};
+    SALES::setSales(sls1, arr1, 4);
+
     SALES::showSales(sls0);
+    SALES::showSales(sls1);
 
     return 0;
 }
