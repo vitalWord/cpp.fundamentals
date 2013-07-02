@@ -6,34 +6,12 @@
 /* and c = (C,Di). Here are some complex operations:                 */
 /* * Addition: a + c = (A + C,(B + D)i)                              */
 /* * Subtraction: a - c = (A - C,(B - D)i)                           */
-/* * Multiplication: a ×c = (A ×C - B×D,(A×D + B×C)i)                */
-/* * Multiplication: (x a real number):x ×c = (x×C,x×Di)             */
+/* * Multiplication: a × c = (A × C - B × D, (A × D + B × C)i)       */
+/* * Multiplication: (x a real number): x × c = (x × C, x × Di)      */
 /* * Conjugation: ~a = (A,- Bi)                                      */
 /* Define a complex class so that the following program can use it   */
-/* with correct results:                                             */
-
-#include "07.cmplx.h" // to avoid confusion with complex.h
-
-int main()
-{
-    Complex a(3.0, 4.0); // initialize to (3,4i)
-    Complex c;
-    std::cout << "Enter a complex number (q to quit):" << std::endl;
-    while (std::cin >> c)
-    {
-        std::cout << "c is " << c << std::endl;
-        std::cout << "complex conjugate is " << ~c << std::endl;
-        std::cout << "a is " << a << std::endl;
-        std::cout << "a + c is " << a + c << std::endl;
-        std::cout << "a - c is " << a - c << std::endl;
-        std::cout << "a * c is " << a * c << std::endl;
-        std::cout << "2 * c is " << 2 * c << std::endl;
-        std::cout << "Enter a complex number (q to quit):" << std::endl;
-    }
-    std::cout << "Done!" << std::endl;
-    return 0;
-}
-
+/* with correct results: see 07.main.cpp                             */
+/*                                                                   */
 /* Note that you have to overload the << and >> operators. Standard  */
 /* C++ already has complex support, rather more extensive than in    */
 /* this example — in a complex header file, so use complex0.h to     */
@@ -54,7 +32,51 @@ int main()
 /*     real:q                                                        */
 /*     Done!                                                         */
 /*                                                                   */
-/* Note that cin >> c, through overloading, now prompts for real and */
-/* imaginary parts.                                                  */
+/* Note that cin >> c, through overloading, now prompts for real     */
+/* and imaginary parts.                                              */
 /*                                                                   */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+#include "07.cmplx.h"
+
+Complex Complex::operator~() const
+{
+    return Complex(r, -i);
+}
+
+Complex Complex::operator+(const Complex & cn) const
+{
+    return Complex(r + cn.r, i + cn.i);
+}
+
+Complex Complex::operator-(const Complex & cn) const
+{
+    return Complex(r - cn.r, i - cn.i);
+}
+
+Complex Complex::operator*(const Complex & cn) const
+{
+    return Complex(r * cn.r - i * cn.i,
+                   r * cn.i + i * cn.r);
+}
+
+Complex Complex::operator*(double n) const
+{
+    return Complex(r * n, i * n);
+}
+
+std::istream & operator>>(std::istream & istrm, Complex & cn)
+{
+    std::cout << "real: ";
+    istrm >> cn.r;
+    std::cout << "imaginary: ";
+    istrm >> cn.i;
+    return istrm;
+}
+
+std::ostream & operator<<(std::ostream & ostrm, const Complex & cn)
+{
+    ostrm << "(" << cn.r << ", " << cn.i << "i)";
+    return ostrm;
+}
+
